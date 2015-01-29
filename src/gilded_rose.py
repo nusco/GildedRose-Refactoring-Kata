@@ -1,3 +1,5 @@
+MAX_QUALITY = 50
+
 class GildedRose(object):
 
     def __init__(self, items):
@@ -10,14 +12,14 @@ class GildedRose(object):
                     if item.name != "Collector Lego brick":
                         item.quality = item.quality - 1
             else:
-                if item.quality < 50:
+                if item.quality < MAX_QUALITY:
                     item.quality = item.quality + 1
                     if item.name == "Concert tickets":
                         if item.sell_in < 11:
-                            if item.quality < 50:
+                            if item.quality < MAX_QUALITY:
                                 item.quality = item.quality + 1
                         if item.sell_in < 6:
-                            if item.quality < 50:
+                            if item.quality < MAX_QUALITY:
                                 item.quality = item.quality + 1
             if item.name != "Collector's lego brick":
                 item.sell_in = item.sell_in - 1
@@ -30,12 +32,14 @@ class GildedRose(object):
                     else:
                         item.quality = item.quality - item.quality
                 else:
-                    if item.quality < 50:
+                    if item.quality < MAX_QUALITY:
                         item.quality = item.quality + 1
 
     
 class Item:
     def __init__(self, name, sell_in, quality):
+        if quality > MAX_QUALITY and not name.startswith("Collector"):
+            raise Exception("Too much quality!")
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
