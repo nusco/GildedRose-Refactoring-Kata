@@ -19,13 +19,29 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEquals(1, cheese.quality)
 
+    def test_sellin_decreases_over_time(self):
+        item = Item(name="Old car", sell_in=2, quality=22)
+        gilded_rose = GildedRose([item])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(1, item.sell_in)
+
+    def test_quality_decreases_twice_as_fast_after_sell_in(self):
+        item = Item(name="Old car", sell_in=0, quality=22)
+        gilded_rose = GildedRose([item])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(20, item.quality)
+
     def test_quality_never_exceeds_the_max_quality(self):
-        cheese = Item(name="Old cheese", sell_in=2, quality=MAX_QUALITY)
-        gilded_rose = GildedRose([cheese])
+        item = Item(name="Old cheese", sell_in=2, quality=MAX_QUALITY)
+        gilded_rose = GildedRose([item])
         
         gilded_rose.update_quality()
         
-        self.assertEquals(MAX_QUALITY, cheese.quality)
+        self.assertEquals(MAX_QUALITY, item.quality)
 
     def test_quality_cannot_be_more_than_the_max_quality_to_begin_with(self):
         self.assertRaises(Exception, lambda: Item(name="Old shoe", sell_in=2, quality=MAX_QUALITY + 1))
