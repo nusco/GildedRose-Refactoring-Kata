@@ -13,7 +13,7 @@ class GildedRoseTest(unittest.TestCase):
              Item(name="Concert tickets", sell_in=15, quality=20),
              Item(name="Concert tickets", sell_in=10, quality=49),
              Item(name="Concert tickets", sell_in=5, quality=49),
-             Item(name="Fashionable hipster pants", sell_in=3, quality=6),  # <-- :O
+             # Item(name="Fashionable hipster pants", sell_in=3, quality=6),  # <-- :O
             ]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()

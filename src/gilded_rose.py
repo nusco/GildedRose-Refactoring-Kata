@@ -22,7 +22,7 @@ class GildedRose(object):
             if item.name != "Collector's lego brick":
                 item.sell_in = item.sell_in - 1
             if item.sell_in < 0:
-                if item.name != "Aged Brie":
+                if item.name != "Old cheese":
                     if item.name != "Concert tickets":
                         if item.quality > 0:
                             if item.name != "Collector Lego brick":
