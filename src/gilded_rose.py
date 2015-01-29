@@ -1,3 +1,4 @@
+MIN_QUALITY = 0
 MAX_QUALITY = 50
 
 class GildedRose(object):
@@ -40,6 +41,8 @@ class Item:
     def __init__(self, name, sell_in, quality):
         if quality > MAX_QUALITY and not name.startswith("Collector"):
             raise Exception("Too much quality!")
+        if quality < MIN_QUALITY:
+            raise Exception("Not enough quality!")
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
