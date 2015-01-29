@@ -1,4 +1,4 @@
-class ThriftShop(object):
+class GildedRose(object):
 
     def __init__(self, items):
         self.items = items
@@ -7,7 +7,7 @@ class ThriftShop(object):
         for item in self.items:
             if item.name != "Old cheese" and item.name != "Concert tickets":
                 if item.quality > 0:
-                    if item.name != "Collector's lego brick":
+                    if item.name != "Collector Lego brick":
                         item.quality = item.quality - 1
             else:
                 if item.quality < 50:
@@ -25,7 +25,7 @@ class ThriftShop(object):
                 if item.name != "Aged Brie":
                     if item.name != "Concert tickets":
                         if item.quality > 0:
-                            if item.name != "Collector's lego brick":
+                            if item.name != "Collector Lego brick":
                                 item.quality = item.quality - 1
                     else:
                         item.quality = item.quality - item.quality
