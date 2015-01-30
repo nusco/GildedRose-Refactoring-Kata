@@ -19,6 +19,54 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEquals(1, cheese.quality)
 
+    def test_concert_tickets_raise_in_quality_earlier_than_10_days_before_the_concert(self):
+        tickets = Item(name="Concert tickets", sell_in=11, quality=20)
+        gilded_rose = GildedRose([tickets])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(21, tickets.quality)
+
+    def test_concert_tickets_raise_in_quality_by_2_later_than_10_days_before_the_concert(self):
+        tickets = Item(name="Concert tickets", sell_in=10, quality=20)
+        gilded_rose = GildedRose([tickets])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(22, tickets.quality)
+
+    def test_concert_tickets_raise_in_quality_by_2_earlier_than_5_days_before_the_concert(self):
+        tickets = Item(name="Concert tickets", sell_in=6, quality=20)
+        gilded_rose = GildedRose([tickets])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(22, tickets.quality)
+
+    def test_concert_tickets_raise_in_quality_by_3_before_the_concert(self):
+        tickets = Item(name="Concert tickets", sell_in=5, quality=20)
+        gilded_rose = GildedRose([tickets])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(23, tickets.quality)
+
+    def test_concert_tickets_raise_in_quality_right_before_the_concert(self):
+        tickets = Item(name="Concert tickets", sell_in=1, quality=20)
+        gilded_rose = GildedRose([tickets])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(23, tickets.quality)
+
+    def test_concert_tickets_drop_to_zero_quality_after_the_concert(self):
+        tickets = Item(name="Concert tickets", sell_in=0, quality=20)
+        gilded_rose = GildedRose([tickets])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(0, tickets.quality)
+
     def test_sellin_decreases_over_time(self):
         item = Item(name="Old car", sell_in=2, quality=22)
         gilded_rose = GildedRose([item])
@@ -61,6 +109,14 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
 
         self.assertEquals(20, collector_item.quality)
+
+    def test_sellin_does_not_change_for_collector_items(self):
+        collector_item = Item(name="Collector Lego brick", sell_in=2, quality=20)
+        gilded_rose = GildedRose([collector_item])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(2, collector_item.sell_in)
 
  #            Item(name="Cobol programming book", sell_in=10, quality=20),
  #            Item(name="Fake moustache", sell_in=5, quality=7),
