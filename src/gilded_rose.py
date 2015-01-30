@@ -10,7 +10,10 @@ class GildedRose(object):
         for item in self.items:
             self.update_quality_for(item)
 
-    def update_quality_for(self, item):
+    def update_quality_for(self, item):        
+        if item.name == "Collector Lego brick":
+            return
+
         if item.name == "Old cheese":
             if item.quality < MAX_QUALITY:
                 item.quality = item.quality + 1
@@ -20,24 +23,24 @@ class GildedRose(object):
                     item.quality = item.quality + 1
             return    
         
-        elif item.name == "Concert tickets":
+        if item.name == "Concert tickets":
             if item.quality < MAX_QUALITY:
                 item.quality = item.quality + 1
                 self.increment_quality_for_concert_tickets(item)
-        else:
-            if item.quality > 0:
-                if item.name != "Collector Lego brick":
-                    item.quality = item.quality - 1
-
-        if item.name != "Collector Lego brick":
             item.sell_in = item.sell_in - 1
-        if item.sell_in < 0:
-            if item.name != "Concert tickets":
-                if item.quality > 0:
-                    if item.name != "Collector Lego brick":
-                        item.quality = item.quality - 1
-            else:
+            if item.sell_in < 0:
                 item.quality = item.quality - item.quality
+            return
+
+        item.sell_in = item.sell_in - 1
+
+        if item.sell_in >= 0:
+            item.quality = item.quality - 1
+        else:
+            item.quality = item.quality - 2
+
+        if item.quality < 0:
+            item.quality = 0
         
     def increment_quality_for_concert_tickets(self, item):
         if item.sell_in < 11:
