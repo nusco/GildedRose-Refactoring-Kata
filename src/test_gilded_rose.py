@@ -54,6 +54,14 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEquals(MAX_QUALITY + 1, collector_item.quality)
 
+    def test_quality_does_not_degrade_for_collector_items(self):
+        collector_item = Item(name="Collector Lego brick", sell_in=2, quality=20)
+        gilded_rose = GildedRose([collector_item])
+        
+        gilded_rose.update_quality()
+
+        self.assertEquals(20, collector_item.quality)
+
  #            Item(name="Cobol programming book", sell_in=10, quality=20),
  #            Item(name="Fake moustache", sell_in=5, quality=7),
  #            Item(name="Collector Lego brick", sell_in=0, quality=80),
